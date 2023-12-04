@@ -2,24 +2,55 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-
-
-    {% for item in item_list %}
+<div class="container">
     <div class="row">
-        <div class="col-md-3 offset-md-2">
-            <img class="card" width="300px" src="{{item.image}}">
-        </div>
-        <div class="col-md-4">
-            <h3>{{item.name}}</h3>
-            <h5>${{item.price}}</h5>
-            <h5>{{item.user}}</h5>
-            <a href="{% url 'detail' item.slug %}" class="btn btn-success">Details</a>
-        </div>
-        <div class="col-md-2">
-            
+        <div class="col-md-4 offset-md-4">
+            <form method="GET">
+                <input type="search" name="food">
+                <button type="submit" class="bg-success text-white">Search</button>
+            </form>
         </div>
     </div>
+</div>
 
-    {% endfor %}
-    
+{% for item in items %}
+
+<div class="row">
+    <div class="col-md-3 offset-md-2">
+        <img class="card" width="300px" src="{{item.image}}">
+    </div>
+    <div class="col-md-4">
+        <h3>{{item.name}}</h3>
+        <h5>${{item.price}}</h5>
+        <h5>{{item.user}}</h5>
+        <a href="{% url 'detail' item.slug %}" class="btn btn-success">Details</a>
+    </div>
+    <div class="col-md-2">
+        
+    </div>
+</div>
+
+{% endfor %}
+
+<div class="col-12 pb-1">
+    <ul class="pagination justify-content-center mb-3">
+        {% if items.has_previous %}
+        <li class="page-item"></li>
+            <a href="?page=1">First</a>
+            <a href="?page={{items.previous_page_number}}">Previous</a>
+        </li>
+        {% endif %}
+
+Page: {{items.number}} of {{items.paginator.num_pages}}
+
+        {% if items.has_next %}
+        <li class="page-item">
+            <a href="?page={{items.next_page_number}}">Next</a>
+            <a href="?page={{items.paginator.num_pages}}">Last</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+
+
 {% endblock %}

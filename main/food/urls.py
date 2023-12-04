@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import update_item, delete_item, CreateItem, DetailItem, IndexClassView
+from .views import update_item, delete_item, CreateItem, DetailItem, IndexClassView, index
 
 
 urlpatterns = [
-    path('', IndexClassView.as_view(), name='index'),
+    # path('', IndexClassView.as_view(), name='index'),
+    path('', index, name='index'),
     path('food/<slug:slug>', DetailItem.as_view(), name='detail'),
     path('create-item/', CreateItem.as_view(), name='create-item'),
     path('update-item/<slug:item_slug>', update_item, name='update-item'),

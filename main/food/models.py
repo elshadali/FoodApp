@@ -14,6 +14,7 @@ class Item(models.Model):
     def __str__(self):
         return self.name
     
+    # after adding an item, we redirect to detail page
     def get_absolute_url(self):
         return reverse('detail', kwargs={'slug': self.slug})
     
